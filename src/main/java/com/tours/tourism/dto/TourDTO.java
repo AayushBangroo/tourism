@@ -1,18 +1,19 @@
 package com.tours.tourism.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tours.tourism.entities.Tour;
+import com.tours.tourism.validators.EnumValidator;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static java.util.Objects.nonNull;
 
 @Builder
 @Getter
@@ -23,7 +24,15 @@ public class TourDTO {
 
     private String id;
 
+    private enum Difficulty{
+        easy,
+        medium,
+        difficult,
+    }
+
     @NotNull(message = "A tour must have a name")
+    @Size(max = 40, message = "A tour name must have length of less than or equal to 40 characters")
+    @Size(min = 10, message = "A tour name must have minimum length of 10 characters")
     private String name;
 
     @NotNull(message = "A tour must have a duration")
@@ -33,11 +42,14 @@ public class TourDTO {
     private Integer maxGroupSize;
 
     @NotNull(message = "A tour must have a difficulty")
+    @EnumValidator(enumClass = Difficulty.class, message = "Invalid name for difficulty")
     private String difficulty;
 
     @NotNull(message = "A tour must have a price")
     private Double price;
 
+    @Min(value = 1, message = "ratings average should have value greater than or equal to 1")
+    @Max(value = 5, message = "ratings average should have value less than or equal to 5")
     private Double ratingsAverage;
 
     private Integer ratingsQuantity;
@@ -60,7 +72,7 @@ public class TourDTO {
 
     private String dummy;
 
-    public TourDTO(){
+    public TourDTO() {
         ratingsAverage = 4.5;
     }
 
