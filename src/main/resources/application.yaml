@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://ab00012:aayushisgreat@cluster0.jmaoalm.mongodb.net/?retryWrites=true&w=majority
+      database: tours-app
+      auto-index-creation: true
