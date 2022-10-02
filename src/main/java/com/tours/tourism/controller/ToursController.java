@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/tours")
-public class ToursController {
+public class ToursController extends BaseController{
 
     @Autowired
     private TourService tourService;
@@ -77,7 +77,6 @@ public class ToursController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
     private Map<String, Object> buildSuccessResponse(Object obj) {
         JSONObject jsonObject = new JSONObject();
