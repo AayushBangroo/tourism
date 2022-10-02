@@ -3,7 +3,7 @@ package com.tours.tourism.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tours.tourism.entities.Tour;
 import com.tours.tourism.validators.EnumValidator;
-import com.tours.tourism.validators.FieldMatch;
+import com.tours.tourism.validators.PriceValidate;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,15 +21,13 @@ import java.util.List;
 @Setter
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@FieldMatch.List({
-        @FieldMatch(first = "price", second = "priceDiscount", message = "Price discount must be less than or " +
-                "equal to price"),
-})
+@PriceValidate(first = "price", second = "priceDiscount", message = "Price discount must be less than or " +
+        "equal to price")
 public class TourDTO {
 
     private String id;
 
-    private enum Difficulty{
+    private enum Difficulty {
         easy,
         medium,
         difficult,
